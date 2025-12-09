@@ -1,0 +1,31 @@
+import collections
+
+map = collections.defaultdict(list)
+
+# write a trie, with interface insert, search, startsWith
+class Trie:
+    def __init__(self):
+        self.root = collections.defaultdict(list)
+        self.end = "#"
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for char in word:
+            node = node[char]
+        node[self.end] = self.end
+
+    def search(self, word: str) -> bool:
+        node = self.root
+        for char in word:
+            if char not in node:
+                return False
+            node = node[char]
+        return self.end in node
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        for char in prefix:
+            if char not in node:
+                return False
+            node = node[char]
+        return True
